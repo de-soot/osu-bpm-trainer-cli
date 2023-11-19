@@ -5,13 +5,13 @@
 #include <conio.h>
 #include <sys/timeb.h>
 
-long long int msSystemTime() {
+double msSystemTime() {
     struct _timeb timeBuffer;
     _ftime(&timeBuffer);
-    return ( (timeBuffer.time * 1000) + (long long)timeBuffer.millitm );
+    return (double)( (timeBuffer.time * 1000) + (long long)timeBuffer.millitm );
 }
 
-void countdown(long unsigned int msPerCount) {
+void countdown(long unsigned msPerCount) {
 	char display[] = "3...";
 	int counter = 3, i = 0, displayEmpty;
 	do {
@@ -40,25 +40,30 @@ void countdown(long unsigned int msPerCount) {
 
 int main() {
 	printf("BPM : ");
-	float bpm;
-	scanf("%f", &bpm);
-	bpm += ( 2 * bpm * -(float)(bpm < 0) ) + (bpm == 0); // bpm is never below 0
+	double bpm = 60;
+	scanf("%lf", &bpm);
+	bpm += ( 2 * bpm * -(bpm < 0) ) + (bpm == 0); // bpm is never 0 or below
 
-	float timeSignature;
+	double timeSignature;
 	{
 		printf("Time Signature (A/B) : ");
-		float numerator, denominator;
-		scanf("%f/%f", &numerator, &denominator);
+		double numerator, denominator;
+		scanf("%lf/%lf", &numerator, &denominator);
+
+		// numerator and denominator and never 0 or below
+		numerator += ( 2 * numerator * -(numerator < 0) ) + (numerator == 0);
+		denominator += ( 2 * denominator * -(denominator < 0) ) + (denominator == 0);
+
 		timeSignature = numerator / denominator;
 	}
 
-	// bpm is 1/4th a whole note, so multiply it by 4 for the time signature
-	// 60000 is the amount of milliseconds in 1 second, multiplied by 4 gives 240000
-	long long int msPerBeat = (long long)trunc( (float)240000 / bpm * timeSignature );
+	// bpm is 1/4th a whole note, so multiply it by 4 before multiplying with the time signature,
+	// and 60000 is the amount of milliseconds in 1 second, so multipliying it by 4 gives 240000
+	double msPerBeat = 240000 / bpm * timeSignature;
 
 	printf("Beat limit : ");
-	long long int beatLimit;
-	scanf("%lld", &beatLimit);
+	int beatLimit = 0;
+	scanf("%d", &beatLimit);
 
 	printf("Press any key to start or press 'Q' to stop anytime\n");
 	
@@ -66,27 +71,22 @@ int main() {
 
 	countdown( (long unsigned)msPerBeat );
 
-	long long int startTime = msSystemTime(), currentTime;
-	long long int beatTime;
-	long long int beatsSinceStart, beatsSinceStartPrevious;
-	long long int hitTimeDiff;
-	float hitAccuracy, totalAccuracy = 100;
+	double startTime = msSystemTime(), currentTime, beatTime, hitTimeDiff, hitAccuracy, totalAccuracy = 100;
+	int beatsSinceStart, beatsSinceStartPrevious, hitCount = 0, misses = 0, beatHit = 0;
 	char earlyLate[8];
-	float hitCount = 0;
-	int misses = 0;
-	int beatHit = 0;
 
 	do {
 		currentTime = msSystemTime();
 
-		beatsSinceStart = (long long)trunc( (float)(currentTime - startTime) / (float)msPerBeat );
-		beatTime = startTime + (long long)( (float)0.5 * (float)msPerBeat ) + (beatsSinceStart * msPerBeat);
+		beatsSinceStart = (int)trunc( (currentTime - startTime) / msPerBeat );
+		beatTime = startTime + ( 0.5 * msPerBeat ) + ( (double)beatsSinceStart * msPerBeat );
 
 		if( !beatHit && (beatsSinceStart != beatsSinceStartPrevious) ) {
 			misses += 1;
 			printf("MISS\n");
 		}
 		
+		// if beatHit is 1 and there is a new beat, then reset beatHit to 0
 		beatHit -= beatHit && (beatsSinceStart != beatsSinceStartPrevious);
 
 		beatsSinceStartPrevious = beatsSinceStart;
@@ -110,24 +110,19 @@ int main() {
 			// makes hitTimeDiff positive if negative
 			hitTimeDiff += ( 2 * hitTimeDiff * -(hitTimeDiff < 0) );
 
-			hitAccuracy = (float)(hitTimeDiff / msPerBeat);
-			totalAccuracy = (totalAccuracy + hitAccuracy) / hitCount;
+			hitAccuracy = (hitTimeDiff / msPerBeat);
+			totalAccuracy = (totalAccuracy + hitAccuracy) / (double)hitCount;
 
-			printf("%lld ms %s\n", hitTimeDiff, earlyLate);
+			printf("%s - %lf ms\n", earlyLate, hitTimeDiff);
 		}
 	} while( (keyPress != 'q') && ( (beatsSinceStart < beatLimit) || (beatLimit <= 0) ) );
 
-	printf("Press enter to exit the program or enter 'S' to save results : ");
+	printf("Save results ? (Y/N) : ");
+	char save = 'n';
+	scanf("%c", &save);
 
-	char save = (char)getchar();
-
-	if(save == 's' || save == 'S') {
+	if(save == 'y' || save == 'Y') {
 		// write stats in a .txt file where each line is a record
-		// BPM : %f, Accuracy : %f, Total hit count : %d
-
-		// read using
-		// fscanf("BPM : %f, Time Signature : %f/%f Accuracy : %f, Total hit count : %d", &bpmFile, &totalAccuracyFile, &hitCountFile)
-
 		// compare current accuracy with previous record's accuracies with the same BPM and Total hit count
 		// and print personal best and current accuracy
 	}
