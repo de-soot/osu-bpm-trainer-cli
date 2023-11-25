@@ -4,6 +4,7 @@
 #include <windows.h>
 #include <conio.h>
 #include <sys/timeb.h>
+#include <mmsystem.h>
 
 double msSystemTime() {
     struct _timeb timeBuffer;
@@ -34,8 +35,7 @@ void countdown(long unsigned msPerCount) {
 		i *= !displayEmpty; // resets i to 0 when display is empty
 	} while(counter > 0);
 
-	printf("\r%s\r", "GO!");
-	Sleep(msPerCount);
+	printf("\r%s\n", "GO!");
 }
 
 int main() {
