@@ -50,7 +50,7 @@ int main() {
 		double numerator, denominator;
 		scanf("%lf/%lf", &numerator, &denominator);
 
-		// numerator and denominator and never 0 or below
+		// numerator and denominator is never 0 or below
 		numerator += ( 2 * numerator * -(numerator < 0) ) + (numerator == 0);
 		denominator += ( 2 * denominator * -(denominator < 0) ) + (denominator == 0);
 
