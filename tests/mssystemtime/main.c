@@ -5,7 +5,7 @@
 int main() {
     struct _timeb timeBuffer;
     _ftime(&timeBuffer);
-    printf("%lld", ( (timeBuffer.time * 1000) + (long long int)timeBuffer.millitm ));
+    printf("%lf", (double)( (timeBuffer.time * 1000) + (long long)timeBuffer.millitm ));
 
     return 0;
 }
