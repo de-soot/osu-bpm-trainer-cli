@@ -1,10 +1,9 @@
+#define WIN32_LEAN_AND_MEAN
 #include <stdio.h>
 #include <math.h>
-#include <string.h>
 #include <windows.h>
 #include <conio.h>
 #include <sys/timeb.h>
-#include <mmsystem.h>
 
 double msSystemTime() {
     struct _timeb timeBuffer;
@@ -118,7 +117,7 @@ int main() {
 	} while( (keyPress != 'q') && ( (beatsSinceStart < beatLimit) || (beatLimit <= 0) ) );
 
 	printf("Save results ? (Y/N) : ");
-	char save = 'n';
+	char save = 'y';
 	scanf("%c", &save);
 
 	if(save == 'y' || save == 'Y') {

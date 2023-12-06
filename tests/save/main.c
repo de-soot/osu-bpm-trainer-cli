@@ -1,9 +1,9 @@
+#define WIN32_LEAN_AND_MEAN
 #include <stdio.h>
-#include <string.h>
 
 int main() {
     printf("Save results ? (Y/N) : ");
-	char save;
+	char save = 'y';
 	scanf("%c", &save);
 
 	if(save == 'y' || save == 'Y') {
