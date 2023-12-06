@@ -72,7 +72,7 @@ int main() {
 
 	double startTime = msSystemTime(), currentTime, beatTime, hitTimeDiff, hitAccuracy, totalAccuracy = 100;
 	int beatsSinceStart, beatsSinceStartPrevious, hitCount = 0, misses = 0, beatHit = 0;
-	char earlyLate[8];
+	char* earlyLate;
 
 	do {
 		currentTime = msSystemTime();
@@ -99,11 +99,11 @@ int main() {
 			hitTimeDiff = currentTime - beatTime;
 			
 			if(hitTimeDiff < 0) {
-				strcpy(earlyLate, "EARLY");
+				earlyLate = "EARLY";
 			} else if(hitTimeDiff > 0) {
-				strcpy(earlyLate, "LATE");
+				earlyLate = "LATE";
 			} else {
-				strcpy(earlyLate, "PERFECT");
+				earlyLate = "PERFECT";
 			}
 
 			// makes hitTimeDiff positive if negative
