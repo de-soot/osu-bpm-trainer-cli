@@ -11,9 +11,9 @@ int main() {
 
     do {
 	    QueryPerformanceCounter(&currentTick);
-        msTimeElapsed = (double)( (currentTick.QuadPart - startTick.QuadPart) / clockFrequency.QuadPart * 1000 );
-        printf("%lf", msTimeElapsed);
-        Sleep(1000);
+        msTimeElapsed = (double)(currentTick.QuadPart - startTick.QuadPart) / (double)clockFrequency.QuadPart * 1000;
+        printf("%lf\n", msTimeElapsed);
+        Sleep(0); // sleeps until next frame
     } while(1);
 
     return 0;

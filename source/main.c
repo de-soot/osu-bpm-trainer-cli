@@ -3,12 +3,15 @@
 #include <math.h>
 #include <windows.h>
 #include <conio.h>
-#include <sys/timeb.h>
 
-double msSystemTime() {
-    struct _timeb timeBuffer;
-    _ftime(&timeBuffer);
-    return (double)( (timeBuffer.time * 1000) + (long long)timeBuffer.millitm );
+double msClockTime() {
+    LARGE_INTEGER clockFrequency;
+    QueryPerformanceFrequency(&clockFrequency);
+
+	LARGE_INTEGER currentTick;
+	QueryPerformanceCounter(&currentTick);
+
+    return (double)currentTick.QuadPart / (double)clockFrequency.QuadPart * 1000;
 }
 
 void countdown(long unsigned msPerCount) {
@@ -70,12 +73,12 @@ int main() {
 
 	countdown( (long unsigned)msPerBeat );
 
-	double startTime = msSystemTime(), currentTime, beatTime, hitTimeDiff, hitAccuracy, totalAccuracy = 100;
+	double startTime = msClockTime(), currentTime, beatTime, hitTimeDiff, hitAccuracy, totalAccuracy = 100;
 	int beatsSinceStart, beatsSinceStartPrevious, hitCount = 0, misses = 0, beatHit = 0;
 	char* earlyLate;
 
 	do {
-		currentTime = msSystemTime();
+		currentTime = msClockTime();
 
 		beatsSinceStart = (int)trunc( (currentTime - startTime) / msPerBeat );
 		beatTime = startTime + ( 0.5 * msPerBeat ) + ( (double)beatsSinceStart * msPerBeat );
