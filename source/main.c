@@ -79,7 +79,7 @@ int main(void) {
 		currentTime = msClockTime();
 
 		beatsSinceStart = (long long int)trunc( (currentTime - startTime) / msPerBeat );
-		beatTime = startTime + ( 0.5 * msPerBeat ) + ( (double)beatsSinceStart * msPerBeat );
+		beatTime = startTime + ( msPerBeat * 0.5 ) + ( (double)beatsSinceStart * msPerBeat );
 
 		if( !beatHit && (beatsSinceStart != beatsSinceStartPrevious) ) {
 			misses += 1;
