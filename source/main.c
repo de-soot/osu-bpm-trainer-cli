@@ -61,7 +61,7 @@ int main(void) {
 	// and 60000 is the amount of milliseconds in 1 second, so multipliying it by 4 gives 240000
 	double msPerBeat = 240000 / bpm * timeSignature;
 
-	printf("Beat limit (0 == infinite): ");
+	printf("Beat limit: ");
 	long long int beatLimit = 0;
 	scanf("%lld", &beatLimit);
 
