@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "d:/Users/user/Documents/Code Projects/osu-bpm-trainer-cli/source",
-      "program": "d:/Users/user/Documents/Code Projects/osu-bpm-trainer-cli/source/build/Debug/outDebug",
+      "cwd": ".",
+      "program": "build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
