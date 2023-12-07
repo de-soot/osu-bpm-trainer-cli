@@ -43,7 +43,7 @@ void countdown(long unsigned msPerCount) {
 
 int main(void) {
 	printf("BPM : ");
-	double bpm = 60;
+	double bpm = 120;
 	scanf("%lf", &bpm);
 	bpm += ( 2 * bpm * -(bpm < 0) ) + (bpm == 0); // bpm never 0 or below
 
