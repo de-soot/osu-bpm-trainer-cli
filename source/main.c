@@ -17,6 +17,7 @@ double msClockTime(void) {
 void countdown(long unsigned msPerCount) {
 	char display[] = "3...";
 	int counter = 3, i = 0, displayEmpty;
+
 	do {
 		printf("\r%s", display); // prints and moves cursor back to start of line to print over the previous one
 		Sleep(msPerCount);
@@ -46,26 +47,23 @@ int main(void) {
 	scanf("%lf", &bpm);
 	bpm += ( 2 * bpm * -(bpm < 0) ) + (bpm == 0); // bpm is never 0 or below
 
-	double timeSignature;
-	{
-		printf("Time Signature (A/B) : ");
-		double numerator, denominator;
-		scanf("%lf/%lf", &numerator, &denominator);
+	printf("Time Signature (A/B) : ");
+	double numerator, denominator;
+	scanf("%lf/%lf", &numerator, &denominator);
 
-		// numerator and denominator is never 0 or below
-		numerator += ( 2 * numerator * -(numerator < 0) ) + (numerator == 0);
-		denominator += ( 2 * denominator * -(denominator < 0) ) + (denominator == 0);
+	// numerator never below 0 and denominator never 0 or below
+	numerator += ( 2 * numerator * -(numerator < 0) );
+	denominator += ( 2 * denominator * -(denominator < 0) ) + (denominator == 0);
 
-		timeSignature = numerator / denominator;
-	}
+	double timeSignature = numerator / denominator;
 
 	// bpm is 1/4th a whole note, so multiply it by 4 before multiplying with the time signature,
 	// and 60000 is the amount of milliseconds in 1 second, so multipliying it by 4 gives 240000
 	double msPerBeat = 240000 / bpm * timeSignature;
 
-	printf("Beat limit : ");
-	int beatLimit = 0;
-	scanf("%d", &beatLimit);
+	printf("Beat limit (0 == infinite): ");
+	long long int beatLimit = 0;
+	scanf("%lld", &beatLimit);
 
 	printf("Press any key to start or press 'Q' to stop anytime\n");
 	
@@ -74,13 +72,13 @@ int main(void) {
 	countdown( (long unsigned)msPerBeat );
 
 	double startTime = msClockTime(), currentTime, beatTime, hitTimeDiff, hitAccuracy, totalAccuracy = 100;
-	int beatsSinceStart, beatsSinceStartPrevious, hitCount = 0, misses = 0, beatHit = 0;
+	long long int beatsSinceStart, beatsSinceStartPrevious, hitCount = 0, misses = 0, beatHit = 0;
 	char* earlyLate;
 
 	do {
 		currentTime = msClockTime();
 
-		beatsSinceStart = (int)trunc( (currentTime - startTime) / msPerBeat );
+		beatsSinceStart = (long long int)trunc( (currentTime - startTime) / msPerBeat );
 		beatTime = startTime + ( 0.5 * msPerBeat ) + ( (double)beatsSinceStart * msPerBeat );
 
 		if( !beatHit && (beatsSinceStart != beatsSinceStartPrevious) ) {

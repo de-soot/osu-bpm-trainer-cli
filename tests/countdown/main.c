@@ -6,6 +6,7 @@ int main(void) {
 	long unsigned int msPerCount = 250;
     char display[] = "3...";
 	int counter = 3, i = 0, displayEmpty;
+	
 	do {
 		printf("\r%s", display); // prints and moves cursor back to start of line to print over the previous one
 		Sleep(msPerCount);
