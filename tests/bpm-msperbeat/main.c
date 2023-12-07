@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <conio.h>
  
-int main() {
+int main(void) {
     printf("BPM : ");
 	double bpm = 60;
 	scanf("%lf", &bpm);

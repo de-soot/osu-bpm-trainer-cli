@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <windows.h>
  
-int main() {
+int main(void) {
 	long unsigned int msPerCount = 250;
     char display[] = "3...";
 	int counter = 3, i = 0, displayEmpty;

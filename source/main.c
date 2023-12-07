@@ -40,7 +40,7 @@ void countdown(long unsigned msPerCount) {
 	printf("\r%s\n", "GO!");
 }
 
-int main() {
+int main(void) {
 	printf("BPM : ");
 	double bpm = 60;
 	scanf("%lf", &bpm);

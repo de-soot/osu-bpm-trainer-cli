@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <windows.h>
 
-int main() {
+int main(void) {
     LARGE_INTEGER startTick, currentTick, clockFrequency;
     QueryPerformanceCounter(&startTick);
 	QueryPerformanceFrequency(&clockFrequency);
