@@ -45,7 +45,7 @@ int main(void) {
 	printf("BPM : ");
 	double bpm = 60;
 	scanf("%lf", &bpm);
-	bpm += ( 2 * bpm * -(bpm < 0) ) + (bpm == 0); // bpm is never 0 or below
+	bpm += ( 2 * bpm * -(bpm < 0) ) + (bpm == 0); // bpm never 0 or below
 
 	printf("Time Signature (A/B) : ");
 	double numerator, denominator;
