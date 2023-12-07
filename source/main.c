@@ -72,7 +72,7 @@ int main(void) {
 	countdown( (long unsigned)msPerBeat );
 
 	double startTime = msClockTime(), currentTime, beatTime, hitTimeDiff, hitAccuracy, totalAccuracy = 100;
-	long long int beatsSinceStart, beatsSinceStartPrevious, hitCount = 0, misses = 0, beatHit = 0;
+	long long unsigned int beatsSinceStart, beatsSinceStartPrevious, hitCount = 0, misses = 0, beatHit = 0;
 	char* earlyLate;
 
 	do {
