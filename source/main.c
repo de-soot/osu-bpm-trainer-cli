@@ -4,7 +4,7 @@
 #include <windows.h>
 #include <conio.h>
 
-double msClockTime() {
+double msClockTime(void) {
     LARGE_INTEGER clockFrequency;
     QueryPerformanceFrequency(&clockFrequency);
 
