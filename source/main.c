@@ -57,8 +57,8 @@ int main(void) {
 
 	double timeSignature = numerator / denominator;
 
-	// bpm is 1/4th a whole note, so multiply it by 4 before multiplying with the time signature,
-	// and 60000 is the amount of milliseconds in 1 second, so multipliying it by 4 gives 240000
+	// bpm is 1/4th a whole note, so multiply it by 4 before multiplying with the time signature.
+	// 60000 is the amount of milliseconds in 1 second, so multipliying it by 4 gives 240000
 	double msPerBeat = 240000 / bpm * timeSignature;
 
 	printf("Beat limit: ");
