@@ -66,7 +66,12 @@ int main(void) {
 	scanf("%llu", &beatLimit);
 
 	printf("Play along with a metronome ? (Y/N) : ");
-	
+	char metronome = 'y';
+	scanf("%1s", &metronome);
+
+	printf("Play along with music ? (Y/N) : ");
+	char music = 'y';
+	scanf("%1s", &music);
 
 	printf("Press any key to start or press 'Q' to stop anytime\n");
 	
@@ -81,12 +86,18 @@ int main(void) {
 	do {
 		currentTime = msClockTime();
 
+		if(music == 'y' || music == 'Y') { PlaySound(TEXT("music.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP); }
+
 		beatsSinceStart = (long long unsigned int)trunc( (currentTime - startTime) / msPerBeat );
 		beatTime = startTime + ( msPerBeat * 0.5 ) + ( (double)beatsSinceStart * msPerBeat );
 
-		if( !beatHit && (beatsSinceStart != beatsSinceStartPrevious) ) {
-			misses += 1;
-			printf("MISS\n");
+		if(beatsSinceStart != beatsSinceStartPrevious) {
+			PlaySound(TEXT("metronome.wav"), NULL, SND_FILENAME | SND_ASYNC);
+			
+			if(!beatHit) {
+				misses += 1;
+				printf("MISS\n");
+			}
 		}
 		
 		// if beatHit is 1 and there is a new beat, then reset beatHit to 0
