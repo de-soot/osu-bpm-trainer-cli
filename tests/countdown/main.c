@@ -29,4 +29,6 @@ int main(void) {
 
 	printf("\r%s\r", "GO!");
 	Sleep(msPerCount);
+
+	return 0;
 }

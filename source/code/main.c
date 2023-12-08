@@ -3,14 +3,13 @@
 #include <math.h>
 #include <windows.h>
 #include <conio.h>
+#include <time.h>
 
 double msClockTime(void) {
     LARGE_INTEGER clockFrequency;
     QueryPerformanceFrequency(&clockFrequency);
-
 	LARGE_INTEGER currentTick;
 	QueryPerformanceCounter(&currentTick);
-
     return (double)currentTick.QuadPart / (double)clockFrequency.QuadPart * 1000;
 }
 
@@ -119,20 +118,10 @@ int main(void) {
 
 	// display results
 	printf("\nRESULTS :\n\tBPM : %lf | Time Signature : %lf/%lf | Accuracy : %lf | Hit count : %llu | Misses : %llu\n",
-	bpm, numerator, denominator, totalAccuracy, hitCount, misses );
+	bpm, numerator, denominator, totalAccuracy, hitCount, misses);
 
 	// find personal best in saves.csv with the same bpm * timeSignatures, then compare accuracy with current results
-	// if current results are better, print "PREVIOUS PERSONAL BEST : " and "NEW PERSONAL BEST !"
-
-	printf("\nSave results ? (Y/N) : ");
-	char save = 'y';
-	scanf("%1s", &save);
-
-	if(save == 'y' || save == 'Y') {
-		// write stats in a .csv file where each line is a record
-		// compare current accuracy with previous record's accuracies with the same BPM and time signature
-		// and print personal best and current accuracy
-	}
+	// if current results are better, print "PREVIOUS PERSONAL BEST : " and "NEW PERSONAL BEST !"}
 
 	return 0;
 }
