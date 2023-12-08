@@ -119,7 +119,7 @@ int main(void) {
 
 	// display results
 	printf("\nRESULTS :\n\tBPM : %lf | Time Signature : %lf/%lf | Accuracy : %lf | Hit count : %llu | Misses : %llu\n",
-								bpm, 	numerator, denominator, totalAccuracy, 				hitCount, 		misses );
+	bpm, numerator, denominator, totalAccuracy, hitCount, misses );
 
 	// find personal best in saves.csv with the same bpm * timeSignatures, then compare accuracy with current results
 	// if current results are better, print "PREVIOUS PERSONAL BEST : " and "NEW PERSONAL BEST !"
