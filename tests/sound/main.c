@@ -5,6 +5,6 @@
 #include <mmsystem.h>
 
 int main(void) {
-    PlaySound(TEXT("metronome.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+    PlaySound(TEXT("metronome.wav"), NULL, SND_FILENAME | SND_ASYNC);
     _getch();
 }
