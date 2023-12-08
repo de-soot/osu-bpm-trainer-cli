@@ -63,7 +63,7 @@ int main(void) {
 
 	printf("Beat limit : ");
 	long long unsigned int beatLimit = 0;
-	scanf("%lld", &beatLimit);
+	scanf("%llu", &beatLimit);
 
 	printf("Press any key to start or press 'Q' to stop anytime\n");
 	
@@ -72,13 +72,13 @@ int main(void) {
 	countdown( (long unsigned)msPerBeat );
 
 	double startTime = msClockTime(), currentTime, beatTime, hitTimeDiff, hitAccuracy, totalAccuracy = 100;
-	long long unsigned int beatsSinceStart, beatsSinceStartPrevious, hitCount = 0, misses = 0, beatHit = 0;
+	long long unsigned int beatsSinceStart, beatsSinceStartPrevious = 0, hitCount = 0, misses = 0, beatHit = 0;
 	char* earlyLate;
 
 	do {
 		currentTime = msClockTime();
 
-		beatsSinceStart = (long long int)trunc( (currentTime - startTime) / msPerBeat );
+		beatsSinceStart = (long long unsigned int)trunc( (currentTime - startTime) / msPerBeat );
 		beatTime = startTime + ( msPerBeat * 0.5 ) + ( (double)beatsSinceStart * msPerBeat );
 
 		if( !beatHit && (beatsSinceStart != beatsSinceStartPrevious) ) {
@@ -118,14 +118,15 @@ int main(void) {
 	} while( (keyPress != 'q') && ( (beatsSinceStart < beatLimit) || (beatLimit == 0) ) );
 
 	// display results
-	printf("RESULTS :\n\tBPM : %lf | Time Signature : %lf/%lf | Accuracy : %lf | Hit count : %llu | Misses : %llu\n", );
+	printf("\nRESULTS :\n\tBPM : %lf | Time Signature : %lf/%lf | Accuracy : %lf | Hit count : %llu | Misses : %llu\n",
+								bpm, 	numerator, denominator, totalAccuracy, 				hitCount, 		misses );
 
-	// find personal best  in saves.csv with the same bpm * timeSignatures, then compare accuracy with current results
+	// find personal best in saves.csv with the same bpm * timeSignatures, then compare accuracy with current results
 	// if current results are better, print "PREVIOUS PERSONAL BEST : " and "NEW PERSONAL BEST !"
 
-	printf("Save results ? (Y/N) : ");
+	printf("\nSave results ? (Y/N) : ");
 	char save = 'y';
-	scanf("%c", &save);
+	scanf("%1s", &save);
 
 	if(save == 'y' || save == 'Y') {
 		// write stats in a .csv file where each line is a record
