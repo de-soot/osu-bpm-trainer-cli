@@ -61,8 +61,8 @@ int main(void) {
 	// 60000 is the amount of milliseconds in 1 second, so multipliying it by 4 gives 240000
 	double msPerBeat = 240000 / bpm * timeSignature;
 
-	printf("Beat limit: ");
-	long long int beatLimit = 0;
+	printf("Beat limit : ");
+	long long unsigned int beatLimit = 0;
 	scanf("%lld", &beatLimit);
 
 	printf("Press any key to start or press 'Q' to stop anytime\n");
@@ -115,7 +115,13 @@ int main(void) {
 
 			printf("%s - %lf ms\n", earlyLate, hitTimeDiff);
 		}
-	} while( (keyPress != 'q') && ( (beatsSinceStart < beatLimit) || (beatLimit <= 0) ) );
+	} while( (keyPress != 'q') && ( (beatsSinceStart < beatLimit) || (beatLimit == 0) ) );
+
+	// display results
+	printf("RESULTS :\n\tBPM : %lf | Time Signature : %lf/%lf | Accuracy : %lf | Hit count : %llu | Misses : %llu\n", );
+
+	// find personal best  in saves.csv with the same bpm * timeSignatures, then compare accuracy with current results
+	// if current results are better, print "PREVIOUS PERSONAL BEST : " and "NEW PERSONAL BEST !"
 
 	printf("Save results ? (Y/N) : ");
 	char save = 'y';
@@ -123,7 +129,7 @@ int main(void) {
 
 	if(save == 'y' || save == 'Y') {
 		// write stats in a .csv file where each line is a record
-		// compare current accuracy with previous record's accuracies with the same BPM and Total hit count
+		// compare current accuracy with previous record's accuracies with the same BPM and time signature
 		// and print personal best and current accuracy
 	}
 
