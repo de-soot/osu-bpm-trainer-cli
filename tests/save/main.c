@@ -4,7 +4,7 @@
 int main(void) {
     printf("Save results ? (Y/N) : ");
 	char save = 'y';
-	scanf("%c", &save);
+	scanf("%1s", &save);
 
 	if(save == 'y' || save == 'Y') {
 		// write stats in a .csv file where each line is a record
