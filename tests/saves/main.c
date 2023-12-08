@@ -24,5 +24,7 @@ int main(void) {
 		date.tm_year + 1900, date.tm_mon + 1, date.tm_mday, date.tm_hour, date.tm_min);
 	}
 
+	fclose(saveFile);
+
 	return 0;
 }
