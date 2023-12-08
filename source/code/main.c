@@ -4,6 +4,7 @@
 #include <windows.h>
 #include <conio.h>
 #include <time.h>
+#include <mmsystem.h>
 
 double msClockTime(void) {
     LARGE_INTEGER clockFrequency;
@@ -63,6 +64,9 @@ int main(void) {
 	printf("Beat limit : ");
 	long long unsigned int beatLimit = 0;
 	scanf("%llu", &beatLimit);
+
+	printf("Play along with a metronome ? (Y/N) : ");
+	
 
 	printf("Press any key to start or press 'Q' to stop anytime\n");
 	
