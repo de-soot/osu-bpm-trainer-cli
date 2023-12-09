@@ -70,7 +70,6 @@ int main(void) {
 	printf("Beat limit : ");
 	long long unsigned int beatLimit = 0;
 	scanf("%llu", &beatLimit);
-	printf("%llu", beatLimit);
 
 	printf("Play along with a metronome ? (Y/N) : ");
 	char metronome = 'y';
