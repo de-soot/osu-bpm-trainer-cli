@@ -18,6 +18,8 @@ void countdown(long unsigned msPerCount) {
 	char display[] = "3...";
 	int counter = 3, i = 0, displayEmpty;
 
+	PlaySound(TEXT("count3s.wav"), NULL, SND_FILENAME | SND_ASYNC);
+	
 	do {
 		printf("\r%s", display); // prints and moves cursor back to start of line to print over the previous one
 		Sleep(msPerCount);
@@ -32,13 +34,17 @@ void countdown(long unsigned msPerCount) {
 			display[1] = '.';
 			display[2] = '.';
 			display[3] = '.';
+
+			if		(counter == 2) { PlaySound(TEXT("count2s.wav"), NULL, SND_FILENAME | SND_ASYNC); }
+			else if (counter == 1) { PlaySound(TEXT("count1s.wav"), NULL, SND_FILENAME | SND_ASYNC); }
 		}
 
 		++i;
 		i *= !displayEmpty; // resets i to 0 when display is empty
 	} while(counter > 0);
 
-	printf("\r%s\n", "GO!");
+	printf("\r%s\r", "GO!");
+	Sleep(msPerCount);
 }
 
 int main(void) {
