@@ -139,5 +139,7 @@ int main(void) {
 	// find personal best in saves.csv with the same bpm * timeSignatures, then compare accuracy with current results
 	// if current results are better, print "PREVIOUS PERSONAL BEST : " and "NEW PERSONAL BEST !"}
 
+	_getch();
+
 	return 0;
 }
