@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "d:/Users/user/Documents/Code Projects/osu-bpm-trainer-cli/tests/saves",
-      "program": "d:/Users/user/Documents/Code Projects/osu-bpm-trainer-cli/tests/saves/build/Debug/outDebug",
+      "cwd": "d:/Users/user/Documents/Code Projects/osu-bpm-trainer-cli/tests/countdown",
+      "program": "d:/Users/user/Documents/Code Projects/osu-bpm-trainer-cli/tests/countdown/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
