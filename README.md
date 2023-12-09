@@ -6,7 +6,7 @@ Made with `C` to reduce latency and provide accurate feedback to the user.
 Planning on making a new version with GUI in the future.
 
 # Usage
-You can add your own music to tap along with by simply replacing the `music.wav` file in the program folder.
+You can add your own music to tap along with by simply replacing the `music.wav` file in the program folder (default: empty).
 
 ### Note
 - The name of the file must be `music.wav` exactly or else it will not work.
