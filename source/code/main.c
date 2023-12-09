@@ -113,7 +113,7 @@ int main(void) {
 
 		// gets key presses without stopping the program
 		if( _kbhit() ) {
-			PlaySound(TEXT("hitsound.wav"), NULL, SND_FILENAME | SND_ASYNC);
+			PlaySound(TEXT("audio/hitsound.wav"), NULL, SND_FILENAME | SND_ASYNC);
 			keyPress = (char)_getch();
 			beatHit = 1;
 			++hitCount;
