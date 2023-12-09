@@ -70,6 +70,7 @@ int main(void) {
 	printf("Beat limit : ");
 	long long unsigned int beatLimit = 0;
 	scanf("%llu", &beatLimit);
+	printf("%llu", beatLimit);
 
 	printf("Play along with a metronome ? (Y/N) : ");
 	char metronome = 'y';
@@ -89,22 +90,15 @@ int main(void) {
 	long long unsigned int beatsSinceStart, beatsSinceStartPrevious = 0, hitCount = 0, misses = 0, beatHit = 0;
 	char* earlyLate;
 
+	if(music == 'y' || music == 'Y') { PlaySound(TEXT("audio/music.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP); }
+
 	do {
 		currentTime = msClockTime();
-
-		if(music == 'y' || music == 'Y') { PlaySound(TEXT("audio/music.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP); }
-
 		beatsSinceStart = (long long unsigned int)trunc( (currentTime - startTime) / msPerBeat );
 		beatTime = startTime + ( msPerBeat * 0.5 ) + ( (double)beatsSinceStart * msPerBeat );
 
-		if(beatsSinceStart != beatsSinceStartPrevious) {
-			PlaySound(TEXT("audio/metronome.wav"), NULL, SND_FILENAME | SND_ASYNC);
-			
-			if(!beatHit) {
-				misses += 1;
-				printf("MISS\n");
-			}
-		}
+		if( (beatsSinceStart != beatsSinceStartPrevious) && !beatHit ) { misses += 1; printf("MISS\n"); }
+		if(currentTime == beatTime) { PlaySound(TEXT("audio/metronome.wav"), NULL, SND_FILENAME | SND_ASYNC); }
 		
 		// if beatHit is 1 and there is a new beat, then reset beatHit to 0
 		beatHit -= beatHit && (beatsSinceStart != beatsSinceStartPrevious);
