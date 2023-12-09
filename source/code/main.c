@@ -18,7 +18,7 @@ void countdown(long unsigned msPerCount) {
 	char display[] = "3...";
 	int counter = 3, i = 0, displayEmpty;
 
-	PlaySound(TEXT("count3s.wav"), NULL, SND_FILENAME | SND_ASYNC);
+	PlaySound(TEXT("audio/count3s.wav"), NULL, SND_FILENAME | SND_ASYNC);
 	
 	do {
 		printf("\r%s", display); // prints and moves cursor back to start of line to print over the previous one
@@ -35,8 +35,8 @@ void countdown(long unsigned msPerCount) {
 			display[2] = '.';
 			display[3] = '.';
 
-			if		(counter == 2) { PlaySound(TEXT("count2s.wav"), NULL, SND_FILENAME | SND_ASYNC); }
-			else if (counter == 1) { PlaySound(TEXT("count1s.wav"), NULL, SND_FILENAME | SND_ASYNC); }
+			if		(counter == 2) { PlaySound(TEXT("audio/count2s.wav"), NULL, SND_FILENAME | SND_ASYNC); }
+			else if (counter == 1) { PlaySound(TEXT("audio/count1s.wav"), NULL, SND_FILENAME | SND_ASYNC); }
 		}
 
 		++i;
@@ -92,13 +92,13 @@ int main(void) {
 	do {
 		currentTime = msClockTime();
 
-		if(music == 'y' || music == 'Y') { PlaySound(TEXT("music.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP); }
+		if(music == 'y' || music == 'Y') { PlaySound(TEXT("audio/music.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP); }
 
 		beatsSinceStart = (long long unsigned int)trunc( (currentTime - startTime) / msPerBeat );
 		beatTime = startTime + ( msPerBeat * 0.5 ) + ( (double)beatsSinceStart * msPerBeat );
 
 		if(beatsSinceStart != beatsSinceStartPrevious) {
-			PlaySound(TEXT("metronome.wav"), NULL, SND_FILENAME | SND_ASYNC);
+			PlaySound(TEXT("audio/metronome.wav"), NULL, SND_FILENAME | SND_ASYNC);
 			
 			if(!beatHit) {
 				misses += 1;
