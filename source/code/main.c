@@ -83,7 +83,7 @@ int main(void) {
 	
 	char keyPress = (char)_getch();
 
-	countdown( (long unsigned)msPerBeat );
+	countdown( (long unsigned int)msPerBeat );
 
 	double startTime = msClockTime(), currentTime, beatTime, hitTimeDiff, hitAccuracy, totalAccuracy = 100;
 	long long unsigned int beatsSinceStart, beatsSinceStartPrevious = 0, hitCount = 0, misses = 0, beatHit = 0;
