@@ -3,7 +3,7 @@ A simple yet customisable tool that runs in the command-line interface. Built to
 
 Made with `C` to reduce latency and provide accurate feedback to the user.
 
-Future plans to make a new version with GUI in the future maybe using something like `GTK`.
+Future plans to make a new version with `GUI` in the future maybe using something like `GTK`.
 
 ---
 
