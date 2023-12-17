@@ -7,7 +7,7 @@ Future plans to make a new version with GUI in the future.
 
 ---
 
-# Usage
+## Usage
 You can add your own music to tap along with by simply replacing the `music.wav` file in the program folder (default: empty).
 
 ### Note
@@ -18,5 +18,5 @@ You can add your own music to tap along with by simply replacing the `music.wav`
 
 #
 
-# Analytics
+## Analytics
 ![Alt](https://repobeats.axiom.co/api/embed/9a7b4b8bf1bf62dc250fd94d49c2e5716a33fa78.svg "Repobeats analytics image")
