@@ -7,7 +7,7 @@ int main(void) {
 	long long unsigned int hitCount = 1337, misses = 1;
 
 	FILE *saveFile = fopen("saves.csv", "a+");
-	if(saveFile == NULL) { return 1; } // file not found
+	if(saveFile == NULL) { return 1; } // if file not found
 
     printf("Save results ? (Y/N) : ");
 	char save = 'y';
