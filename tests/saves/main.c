@@ -6,7 +6,7 @@ int main(void) {
 	double bpm = 222.22, numerator = 3, denominator = 4, totalAccuracy = 72.7;
 	long long unsigned int hitCount = 1337, misses = 1;
 
-	FILE *saveFile = fopen("saves.csv", "a+");
+	FILE* saveFile = fopen("saves.csv", "a+");
 	if(saveFile == NULL) { return 1; } // if file not found
 
 	time_t t;
