@@ -96,7 +96,7 @@ int main(void) {
 		beatTime = startTime + ( msPerBeat * 0.5 ) + ( (double)beatsSinceStart * msPerBeat );
 
 		if( (beatsSinceStart != beatsSinceStartPrevious) && !beatHit ) { misses += 1; printf("MISS\n"); }
-		if( (currentTime >= beatTime - 0.01) && (currentTime <= beatTime + 0.01) && metronome )
+		if( (currentTime >= beatTime - 0.01) && (currentTime <= beatTime + 0.01) && (metronome == 'y' || metronome == 'Y') )
 			{ PlaySound(TEXT("audio/metronome.wav"), NULL, SND_FILENAME | SND_ASYNC); }
 		
 		// if beatHit is 1 and there is a new beat, then reset beatHit to 0
