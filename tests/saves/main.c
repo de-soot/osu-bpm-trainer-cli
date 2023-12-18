@@ -15,9 +15,9 @@ int main(void) {
 
 	if(save == 'y' || save == 'Y') {
 		time_t t;
-		if( time(&t) == (time_t)(-1) ) { return 2; } // error getting time
+		if( time(&t) == (time_t)(-1) ) { return 2; } // if error getting time
 		struct tm date;
-		if (_gmtime64_s(&date, &t) != 0) { return 3; } // error getting date
+		if (_gmtime64_s(&date, &t) != 0) { return 3; } // if error getting date
 
 		fprintf(saveFile, "%lf,%lf/%lf,%lf,%llu,%llu,%d-%02d-%02d %02d:%02d\n",
 		bpm, numerator, denominator, totalAccuracy, hitCount, misses,
