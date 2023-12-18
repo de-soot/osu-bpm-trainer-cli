@@ -148,8 +148,8 @@ int main(void) {
 	bpm, numerator, denominator, totalAccuracy, hitCount, misses,
 	date.tm_year + 1900, date.tm_mon + 1, date.tm_mday, date.tm_hour, date.tm_min);
 
-	// find personal best in saves.csv with the same bpm * timeSignatures, then compare accuracy with current results
-	// if current results are better, print "PREVIOUS PERSONAL BEST : " and "NEW PERSONAL BEST !"}
+	// Find personal best in saves.csv with the same (bpm * timeSignatures), then compare accuracy with current results.
+	// If current results are better, print previous best and "New Personal Best!".
 
 	fclose(saveFile);
 
