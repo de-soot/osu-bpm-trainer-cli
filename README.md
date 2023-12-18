@@ -1,7 +1,7 @@
 # osu! BPM Trainer CLI
-A simple yet customisable tool that runs in the command-line interface. Built to help fine-tune tapping speed and stamina training for players of the popular rhythm game `osu!`.
+A simple yet customisable tool that runs in the command-line interface. Made to help fine-tune tapping speed and stamina training for players of the popular rhythm game `osu!`.
 
-Made with `C` to reduce latency and provide accurate feedback to the user.
+Built entirely with `C` to reduce latency and provide accurate feedback to the user.
 
 Future plans to make a new version with `GUI` in the future maybe using something like `GTK`.
 
@@ -10,7 +10,7 @@ Future plans to make a new version with `GUI` in the future maybe using somethin
 ## Usage
 You can add your own music to tap along with by simply replacing the `music.wav` file in the program folder (default: empty).
 
-### Note
+### Notes
 - The name of the file must be `music.wav` exactly or else it will not work.
 - The music file has to be in `.wav` format.
 - To convert to `.wav`, use a file converter ( e.g.: To convert from `.mp3` to `.wav` use `https://cloudconvert.com/mp3-to-wav` ).
@@ -18,5 +18,5 @@ You can add your own music to tap along with by simply replacing the `music.wav`
 
 #
 
-## Analytics
-![Alt](https://repobeats.axiom.co/api/embed/9a7b4b8bf1bf62dc250fd94d49c2e5716a33fa78.svg "Repobeats analytics image")
+<h3 align="center">Analytics</h3>
+<p align="center"><img src="https://repobeats.axiom.co/api/embed/9a7b4b8bf1bf62dc250fd94d49c2e5716a33fa78.svg" alt="Repobeats analytics image"/></p>
