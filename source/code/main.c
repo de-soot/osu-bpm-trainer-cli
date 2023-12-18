@@ -43,8 +43,7 @@ void countdown(long unsigned msPerCount) {
 		i *= !displayEmpty; // resets i to 0 when display is empty
 	} while(counter > 0);
 
-	printf("\r%s\r", "GO!");
-	Sleep(msPerCount);
+	printf("\r%s\n\n", "-----------------------------------------------------GO!-----------------------------------------------------");
 }
 
 int main(void) {
@@ -97,7 +96,7 @@ int main(void) {
 		beatTime = startTime + ( msPerBeat * 0.5 ) + ( (double)beatsSinceStart * msPerBeat );
 
 		if( (beatsSinceStart != beatsSinceStartPrevious) && !beatHit ) { misses += 1; printf("MISS\n"); }
-		if( (currentTime >= beatTime - 0.01) && (currentTime <= beatTime + 0.01) )
+		if( (currentTime >= beatTime - 0.01) && (currentTime <= beatTime + 0.01) && (metronome) )
 			{ PlaySound(TEXT("audio/metronome.wav"), NULL, SND_FILENAME | SND_ASYNC); }
 		
 		// if beatHit is 1 and there is a new beat, then reset beatHit to 0
@@ -133,8 +132,8 @@ int main(void) {
 	} while( (keyPress != 'q') && ( (beatsSinceStart < beatLimit) || (beatLimit == 0) ) );
 
 	// display results
-	printf("\nRESULTS :\n\tBPM : %lf | Time Signature : %lf/%lf | Accuracy : %lf | Hit count : %llu | Misses : %llu\n",
-	bpm, numerator, denominator, totalAccuracy, hitCount, misses);
+	printf("\n---------------------------------------------------RESULTS---------------------------------------------------\n\n=============================================================================================================\n| BPM : %lf | Time Signature : %lf/%lf | Accuracy : %lf | Hit count : %llu | Misses : %llu |\n=============================================================================================================\n",
+		bpm, numerator, denominator, totalAccuracy, hitCount, misses);
 
 	// find personal best in saves.csv with the same bpm * timeSignatures, then compare accuracy with current results
 	// if current results are better, print "PREVIOUS PERSONAL BEST : " and "NEW PERSONAL BEST !"}
