@@ -135,8 +135,23 @@ int main(void) {
 	printf("\n---------------------------------------------------RESULTS---------------------------------------------------\n\n=============================================================================================================\n| BPM : %lf | Time Signature : %lf/%lf | Accuracy : %lf | Hit count : %llu | Misses : %llu |\n=============================================================================================================\n",
 		bpm, numerator, denominator, totalAccuracy, hitCount, misses);
 
+	// saves results
+	FILE *saveFile = fopen("saves.csv", "a+");
+	if(saveFile == NULL) { return 1; } // if file not found
+
+	time_t t;
+	if( time(&t) == (time_t)(-1) ) { return 2; } // if error getting time
+	struct tm date;
+	if (_gmtime64_s(&date, &t) != 0) { return 3; } // if error getting date
+
+	fprintf(saveFile, "%lf,%lf/%lf,%lf,%llu,%llu,%d-%02d-%02d %02d:%02d\n",
+	bpm, numerator, denominator, totalAccuracy, hitCount, misses,
+	date.tm_year + 1900, date.tm_mon + 1, date.tm_mday, date.tm_hour, date.tm_min);
+
 	// find personal best in saves.csv with the same bpm * timeSignatures, then compare accuracy with current results
 	// if current results are better, print "PREVIOUS PERSONAL BEST : " and "NEW PERSONAL BEST !"}
+
+	fclose(saveFile);
 
 	_getch();
 
