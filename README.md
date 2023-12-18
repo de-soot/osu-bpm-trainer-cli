@@ -18,5 +18,5 @@ You can add your own music to tap along with by simply replacing the `music.wav`
 
 #
 
-## Analytics
-![Alt](https://repobeats.axiom.co/api/embed/9a7b4b8bf1bf62dc250fd94d49c2e5716a33fa78.svg "Repobeats analytics image")
+<h3 align="center">Analytics</h3>
+<p align="center"><img src="https://repobeats.axiom.co/api/embed/9a7b4b8bf1bf62dc250fd94d49c2e5716a33fa78.svg" alt="Repobeats analytics image"/></p>
