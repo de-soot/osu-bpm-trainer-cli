@@ -15,8 +15,3 @@ You can add your own music to tap along with by simply replacing the `music.wav`
 - The music file has to be in `.wav` format.
 - To convert to `.wav`, use a file converter ( e.g.: To convert from `.mp3` to `.wav` use `https://cloudconvert.com/mp3-to-wav` ).
 - You cannot simply change the file extension by renaming the file, it will not work.
-
-#
-
-<h3 align="center">Analytics</h3>
-<p align="center"><img src="https://repobeats.axiom.co/api/embed/9a7b4b8bf1bf62dc250fd94d49c2e5716a33fa78.svg" alt="Repobeats analytics image"/></p>
