@@ -1,4 +1,4 @@
-# osu! BPM Trainer CLI
+# osu! BPM Trainer CLI (WIP)
 A simple yet customisable tool that runs in the command-line interface. Made to help fine-tune tapping speed and stamina training for players of the popular rhythm game `osu!`.
 
 Built entirely with `C` to reduce latency and provide accurate feedback to the user.
