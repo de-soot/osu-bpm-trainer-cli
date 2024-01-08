@@ -14,7 +14,7 @@ double msClockTime(void) {
     return (double)currentTick.QuadPart / (double)clockFrequency.QuadPart * 1000;
 }
 
-void countdown(long unsigned msPerCount) {
+void countdown(const long unsigned *msPerCount) {
 	char display[] = "3...";
 	int counter = 3, i = 0, displayEmpty;
 
@@ -86,7 +86,7 @@ int main(void) {
 
 	double startTime = msClockTime(), currentTime, beatTime, hitTimeDiff, hitAccuracy, totalAccuracy = 100;
 	long long unsigned int beatsSinceStart, beatsSinceStartPrevious = 0, hitCount = 0, misses = 0, beatHit = 0;
-	char* earlyLate;
+	char *earlyLate;
 
 	if(music == 'y' || music == 'Y') { PlaySound(TEXT("audio/music.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP); }
 
