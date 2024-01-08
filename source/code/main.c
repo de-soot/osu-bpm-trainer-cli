@@ -83,14 +83,12 @@ int main(void) {
 	scanf("%1s", &music);
 
 	printf("Press any key to start or press 'Q' to stop anytime\n");
-	
 	char keyPress = (char)_getch();
-
 	countdown( (long unsigned int)msPerBeat );
 
 	double startTime = msClockTime(), currentTime, beatTime, hitTimeDiff, hitAccuracy, totalAccuracy = 100;
 	long long unsigned int beatsSinceStart, beatsSinceStartPrevious = 0, hitCount = 0, misses = 0;
-	bool beatHit = 0;
+	int beatHit = false;
 	char *earlyLate;
 
 	if(music == 'y' || music == 'Y') PlaySound(TEXT("audio/music.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
@@ -101,10 +99,10 @@ int main(void) {
 		beatTime = startTime + ( msPerBeat * 0.5 ) + ( (double)beatsSinceStart * msPerBeat );
 
 		if( (beatsSinceStart != beatsSinceStartPrevious) && !beatHit ) { misses += 1; printf("MISS\n"); }
-		if( (currentTime >= beatTime - 0.01) && (currentTime <= beatTime + 0.01) && (metronome == 'y' || metronome == 'Y') )
+		if( (currentTime >= beatTime - 1) && (currentTime <= beatTime + 1) && (metronome == 'y' || metronome == 'Y') )
 			PlaySound(TEXT("audio/metronome.wav"), NULL, SND_FILENAME | SND_ASYNC);
 		
-		// if beatHit is 1 and there is a new beat, then reset beatHit to 0
+		// if beatHit is 1 (true) and there is a new beat, then reset beatHit to 0 (false). otherwise, do nothing
 		beatHit -= beatHit && (beatsSinceStart != beatsSinceStartPrevious);
 		// for use in the next loop
 		beatsSinceStartPrevious = beatsSinceStart;
@@ -113,7 +111,7 @@ int main(void) {
 
 		PlaySound(TEXT("audio/hitsound.wav"), NULL, SND_FILENAME | SND_ASYNC);
 		keyPress = (char)_getch();
-		beatHit = 1;
+		beatHit = true;
 		++hitCount;
 
 		hitTimeDiff = currentTime - beatTime;
@@ -135,22 +133,19 @@ int main(void) {
 	// saves results
 	FILE *saveFile = fopen("saves.csv", "a+");
 	if(saveFile == NULL) return 1; // if file not found
-
 	time_t t;
 	if( time(&t) == (time_t)(-1) ) return 2; // if error getting time
 	struct tm date;
 	if (_gmtime64_s(&date, &t) != 0) return 3; // if error getting date
-
 	fprintf(saveFile, "%lf,%lf/%lf,%lf,%llu,%llu,%d-%02d-%02d %02d:%02d\n",
 	bpm, numerator, denominator, totalAccuracy, hitCount, misses,
 	date.tm_year + 1900, date.tm_mon + 1, date.tm_mday, date.tm_hour, date.tm_min);
 
+	// TODO:
 	// Find personal best in saves.csv with the same (bpm * timeSignatures), then compare accuracy with current results.
 	// If current results are better, print previous best and "New Personal Best!".
 
 	fclose(saveFile);
-
 	_getch();
-
 	return 0;
 }

@@ -17,26 +17,28 @@ int main(void) {
 
 		displayEmpty = (i == 3);
 		counter -= displayEmpty;
-
 		display[3-i] = ' ';
-
-		if(displayEmpty) {
-			display[0] = (char)(counter + (int)'0');
-			display[1] = '.';
-			display[2] = '.';
-			display[3] = '.';
-
-			if		(counter == 2) { PlaySound(TEXT("audio/count2s.wav"), NULL, SND_FILENAME | SND_ASYNC); }
-			else if (counter == 1) { PlaySound(TEXT("audio/count1s.wav"), NULL, SND_FILENAME | SND_ASYNC); }
-		}
-
 		++i;
 		i *= !displayEmpty; // resets i to 0 when display is empty
+		
+		if(!displayEmpty) continue;
+
+		display[0] = (char)(counter + (int)'0');
+		display[1] = '.';
+		display[2] = '.';
+		display[3] = '.';
+
+		switch(counter) {
+			case 1:
+				PlaySound(TEXT("audio/count1s.wav"), NULL, SND_FILENAME | SND_ASYNC);
+				break;
+			case 2:
+				PlaySound(TEXT("audio/count2s.wav"), NULL, SND_FILENAME | SND_ASYNC);
+				break;
+		}
 	} while(counter > 0);
 
 	printf("\r%s\n\n", "-----------------------------------------------------GO!-----------------------------------------------------");
-	
 	_getch();
-
 	return 0;
 }
