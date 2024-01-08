@@ -1,6 +1,6 @@
 #define WIN32_LEAN_AND_MEAN
 #include <stdio.h>
-#include <math.h>
+#include <stdbool.h>
 #include <windows.h>
 #include <conio.h>
 #include <time.h>
@@ -14,7 +14,7 @@ double msClockTime(void) {
     return (double)currentTick.QuadPart / (double)clockFrequency.QuadPart * 1000;
 }
 
-void countdown(const long unsigned int msPerCount) {
+void countdown(long unsigned int msPerCount) {
 	char display[] = "3...";
 	int counter = 3, i = 0, displayEmpty;
 
@@ -26,21 +26,25 @@ void countdown(const long unsigned int msPerCount) {
 
 		displayEmpty = (i == 3);
 		counter -= displayEmpty;
-
 		display[3-i] = ' ';
-
-		if(displayEmpty) {
-			display[0] = (char)(counter + (int)'0');
-			display[1] = '.';
-			display[2] = '.';
-			display[3] = '.';
-
-			if		(counter == 2) { PlaySound(TEXT("audio/count2s.wav"), NULL, SND_FILENAME | SND_ASYNC); }
-			else if (counter == 1) { PlaySound(TEXT("audio/count1s.wav"), NULL, SND_FILENAME | SND_ASYNC); }
-		}
-
 		++i;
 		i *= !displayEmpty; // resets i to 0 when display is empty
+		
+		if(!displayEmpty) continue;
+
+		display[0] = (char)(counter + (int)'0');
+		display[1] = '.';
+		display[2] = '.';
+		display[3] = '.';
+
+		switch(counter) {
+			case 1:
+				PlaySound(TEXT("audio/count1s.wav"), NULL, SND_FILENAME | SND_ASYNC);
+				break;
+			case 2:
+				PlaySound(TEXT("audio/count2s.wav"), NULL, SND_FILENAME | SND_ASYNC);
+				break;
+		}
 	} while(counter > 0);
 
 	printf("\r%s\n\n", "-----------------------------------------------------GO!-----------------------------------------------------");
@@ -85,50 +89,43 @@ int main(void) {
 	countdown( (long unsigned int)msPerBeat );
 
 	double startTime = msClockTime(), currentTime, beatTime, hitTimeDiff, hitAccuracy, totalAccuracy = 100;
-	long long unsigned int beatsSinceStart, beatsSinceStartPrevious = 0, hitCount = 0, misses = 0, beatHit = 0;
+	long long unsigned int beatsSinceStart, beatsSinceStartPrevious = 0, hitCount = 0, misses = 0;
+	bool beatHit = 0;
 	char *earlyLate;
 
-	if(music == 'y' || music == 'Y') { PlaySound(TEXT("audio/music.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP); }
+	if(music == 'y' || music == 'Y') PlaySound(TEXT("audio/music.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 
 	do {
 		currentTime = msClockTime();
-		beatsSinceStart = (long long unsigned int)trunc( (currentTime - startTime) / msPerBeat );
+		beatsSinceStart = (long long unsigned int)( (currentTime - startTime) / msPerBeat );
 		beatTime = startTime + ( msPerBeat * 0.5 ) + ( (double)beatsSinceStart * msPerBeat );
 
 		if( (beatsSinceStart != beatsSinceStartPrevious) && !beatHit ) { misses += 1; printf("MISS\n"); }
 		if( (currentTime >= beatTime - 0.01) && (currentTime <= beatTime + 0.01) && (metronome == 'y' || metronome == 'Y') )
-			{ PlaySound(TEXT("audio/metronome.wav"), NULL, SND_FILENAME | SND_ASYNC); }
+			PlaySound(TEXT("audio/metronome.wav"), NULL, SND_FILENAME | SND_ASYNC);
 		
 		// if beatHit is 1 and there is a new beat, then reset beatHit to 0
 		beatHit -= beatHit && (beatsSinceStart != beatsSinceStartPrevious);
-
+		// for use in the next loop
 		beatsSinceStartPrevious = beatsSinceStart;
 
-		// gets key presses without stopping the program
-		if( _kbhit() ) {
-			PlaySound(TEXT("audio/hitsound.wav"), NULL, SND_FILENAME | SND_ASYNC);
-			keyPress = (char)_getch();
-			beatHit = 1;
-			++hitCount;
+		if( !_kbhit() ) continue; // loop back if no keypress is detected
 
-			hitTimeDiff = currentTime - beatTime;
-			
-			if(hitTimeDiff < 0) {
-				earlyLate = "EARLY";
-			} else if(hitTimeDiff > 0) {
-				earlyLate = "LATE";
-			} else {
-				earlyLate = "PERFECT";
-			}
+		PlaySound(TEXT("audio/hitsound.wav"), NULL, SND_FILENAME | SND_ASYNC);
+		keyPress = (char)_getch();
+		beatHit = 1;
+		++hitCount;
 
-			// makes hitTimeDiff positive if negative
-			hitTimeDiff += ( 2 * hitTimeDiff * -(hitTimeDiff < 0) );
+		hitTimeDiff = currentTime - beatTime;
+		if		(hitTimeDiff < 0) earlyLate = 	"EARLY";
+		else if (hitTimeDiff > 0) earlyLate = 	 "LATE";
+		else 					  earlyLate = "PERFECT";
 
-			hitAccuracy = (hitTimeDiff / msPerBeat);
-			totalAccuracy = (totalAccuracy + hitAccuracy) / (double)hitCount;
+		hitTimeDiff += ( 2 * hitTimeDiff * -(hitTimeDiff < 0) ); // makes hitTimeDiff positive if negative
+		hitAccuracy = (hitTimeDiff / msPerBeat);
+		totalAccuracy = (totalAccuracy + hitAccuracy) / (double)hitCount;
 
-			printf("%s - %lf ms\n", earlyLate, hitTimeDiff);
-		}
+		printf("%s - %lf ms\n", earlyLate, hitTimeDiff);
 	} while( (keyPress != 'q') && ( (beatsSinceStart < beatLimit) || (beatLimit == 0) ) );
 
 	// display results
@@ -137,12 +134,12 @@ int main(void) {
 
 	// saves results
 	FILE *saveFile = fopen("saves.csv", "a+");
-	if(saveFile == NULL) { return 1; } // if file not found
+	if(saveFile == NULL) return 1; // if file not found
 
 	time_t t;
-	if( time(&t) == (time_t)(-1) ) { return 2; } // if error getting time
+	if( time(&t) == (time_t)(-1) ) return 2; // if error getting time
 	struct tm date;
-	if (_gmtime64_s(&date, &t) != 0) { return 3; } // if error getting date
+	if (_gmtime64_s(&date, &t) != 0) return 3; // if error getting date
 
 	fprintf(saveFile, "%lf,%lf/%lf,%lf,%llu,%llu,%d-%02d-%02d %02d:%02d\n",
 	bpm, numerator, denominator, totalAccuracy, hitCount, misses,
