@@ -14,7 +14,7 @@ double msClockTime(void) {
     return (double)currentTick.QuadPart / (double)clockFrequency.QuadPart * 1000;
 }
 
-void countdown(const long unsigned *msPerCount) {
+void countdown(const long unsigned msPerCount) {
 	char display[] = "3...";
 	int counter = 3, i = 0, displayEmpty;
 
